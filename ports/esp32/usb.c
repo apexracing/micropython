@@ -40,8 +40,7 @@
 #define CDC_ITF TINYUSB_CDC_ACM_0
 
 static uint8_t usb_rx_buf[CONFIG_TINYUSB_CDC_RX_BUFSIZE];
-ESP_ERROR_CHECK(tusb_cdc_acm_init(&acm_cfg));
-ESP_ERROR_CHECK(esp_tusb_init_console(CDC_ITF));
+
 // This is called from FreeRTOS task "tusb_tsk" in espressif__esp_tinyusb (not an ISR).
 static void usb_callback_rx(int itf, cdcacm_event_t *event) {
     // espressif__esp_tinyusb places tinyusb rx data onto freertos ringbuffer which
@@ -88,7 +87,7 @@ void usb_init(void) {
         #endif
     };
     ESP_ERROR_CHECK(tusb_cdc_acm_init(&acm_cfg));
-
+    ESP_ERROR_CHECK(esp_tusb_init_console(CDC_ITF));
 }
 
 void usb_tx_strn(const char *str, size_t len) {
