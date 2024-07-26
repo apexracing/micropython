@@ -217,13 +217,13 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
     mp_arg_parse_all(n_args, args, &kw_args,
         MP_ARRAY_SIZE(allowed_args), allowed_args, arg_vals);
 
-    ESP_LOGI(TAG,"  slot=%d, width=%d, cd=%p, wp=%p",
+    /*ESP_LOGI(TAG,"  slot=%d, width=%d, cd=%p, wp=%p",
         arg_vals[ARG_slot].u_int, arg_vals[ARG_width].u_int,
         arg_vals[ARG_cd].u_obj, arg_vals[ARG_wp].u_obj);
 
     ESP_LOGI(TAG,("  miso=%p, mosi=%p, sck=%p, cs=%p",
         arg_vals[ARG_miso].u_obj, arg_vals[ARG_mosi].u_obj,
-        arg_vals[ARG_sck].u_obj, arg_vals[ARG_cs].u_obj);
+        arg_vals[ARG_sck].u_obj, arg_vals[ARG_cs].u_obj);*/
 
     ESP_LOGI(TAG,("  d0=%d, d1=%d, d2=%d, d3=%d",
     mp_obj_get_int(arg_vals[ARG_d0].u_obj), mp_obj_get_int(arg_vals[ARG_d1].u_obj),
