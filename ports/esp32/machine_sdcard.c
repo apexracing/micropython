@@ -196,12 +196,12 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         { MP_QSTR_sck,      MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
         { MP_QSTR_cs,       MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
         // 使用指定sdmmc spin
-        { MP_QSTR_clk,     MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_int = mp_const_none} },
-        { MP_QSTR_cmd,     MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_int = mp_const_none} },
-        { MP_QSTR_d0,      MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_int = mp_const_none} },
-        { MP_QSTR_d1,       MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_int = mp_const_none} },
-        { MP_QSTR_d2,       MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_int = mp_const_none} },
-        { MP_QSTR_d3,       MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_int = mp_const_none} },
+        { MP_QSTR_clk,     MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
+        { MP_QSTR_cmd,     MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
+        { MP_QSTR_d0,      MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
+        { MP_QSTR_d1,       MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
+        { MP_QSTR_d2,       MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
+        { MP_QSTR_d3,       MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
         // freq is valid for both SPI and SDMMC interfaces
         { MP_QSTR_freq,     MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 20000000} },
     };
