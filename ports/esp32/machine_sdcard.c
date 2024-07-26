@@ -314,6 +314,7 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
 
         SET_CONFIG_PIN(slot_config, gpio_cd, ARG_cd);
         SET_CONFIG_PIN(slot_config, gpio_wp, ARG_wp);
+        bool  sdmmc_pins= arg_vals[ARG_sdmmc_pins].u_bool;
         if(sdmmc_pins){
             SET_CONFIG_PIN(slot_config, clk, ARG_clk);
             SET_CONFIG_PIN(slot_config, cmd, ARG_cmd);
@@ -328,7 +329,6 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         } else {
             mp_raise_ValueError(MP_ERROR_TEXT("width must be 1 or 4 (or 8 on slot 0)"));
         }
-        bool  sdmmc_pins= arg_vals[ARG_sdmmc_pins].u_bool;
 
         DEBUG_printf("  Calling init_slot()");
         check_esp_err(sdmmc_host_init_slot(self->host.slot, &slot_config));
