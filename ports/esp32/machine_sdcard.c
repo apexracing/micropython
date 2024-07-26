@@ -225,7 +225,7 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         arg_vals[ARG_miso].u_obj, arg_vals[ARG_mosi].u_obj,
         arg_vals[ARG_sck].u_obj, arg_vals[ARG_cs].u_obj);*/
 
-    ESP_LOGI(TAG,("  d0=%d, d1=%d, d2=%d, d3=%d",
+    ESP_LOGI(TAG,"  d0=%d, d1=%d, d2=%d, d3=%d",
     mp_obj_get_int(arg_vals[ARG_d0].u_obj), mp_obj_get_int(arg_vals[ARG_d1].u_obj),
         mp_obj_get_int(arg_vals[ARG_d2].u_obj), mp_obj_get_int(arg_vals[ARG_d3].u_obj));
 
