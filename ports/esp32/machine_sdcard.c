@@ -38,12 +38,13 @@
 #include "sdmmc_cmd.h"
 #include "esp_log.h"
 
-#define DEBUG 1
+#define DEBUG 0
 #if DEBUG
 #define DEBUG_printf(...) ESP_LOGI("modsdcard", __VA_ARGS__)
 #else
 #define DEBUG_printf(...) (void)0
 #endif
+static const char *TAG = "modsdcard";
 
 //
 // There are three layers of abstraction: host, slot and card.
@@ -208,21 +209,25 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
     mp_arg_val_t arg_vals[MP_ARRAY_SIZE(allowed_args)];
     mp_map_t kw_args;
 
-    DEBUG_printf("Making new SDCard:n");
-    DEBUG_printf("  Unpacking arguments");
+    ESP_LOGI(TAG,"Making new SDCard:n");
+    ESP_LOGI(TAG,"  Unpacking arguments");
 
     mp_map_init_fixed_table(&kw_args, n_kw, args + n_args);
 
     mp_arg_parse_all(n_args, args, &kw_args,
         MP_ARRAY_SIZE(allowed_args), allowed_args, arg_vals);
 
-    DEBUG_printf("  slot=%d, width=%d, cd=%p, wp=%p",
+    ESP_LOGI(TAG,"  slot=%d, width=%d, cd=%p, wp=%p",
         arg_vals[ARG_slot].u_int, arg_vals[ARG_width].u_int,
         arg_vals[ARG_cd].u_obj, arg_vals[ARG_wp].u_obj);
 
-    DEBUG_printf("  miso=%p, mosi=%p, sck=%p, cs=%p",
+    ESP_LOGI(TAG,("  miso=%p, mosi=%p, sck=%p, cs=%p",
         arg_vals[ARG_miso].u_obj, arg_vals[ARG_mosi].u_obj,
         arg_vals[ARG_sck].u_obj, arg_vals[ARG_cs].u_obj);
+
+    ESP_LOGI(TAG,("  d0=%d, d1=%d, d2=%d, d3=%d",
+    mp_obj_get_int(arg_vals[ARG_d0].u_obj), mp_obj_get_int(arg_vals[ARG_d1].u_obj),
+        mp_obj_get_int(arg_vals[ARG_d2].u_obj), mp_obj_get_int(arg_vals[ARG_d3].u_obj));
 
     int slot_num = arg_vals[ARG_slot].u_int;
     if (slot_num < 0 || slot_num > 3) {
@@ -235,7 +240,7 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         slot_num -= 2;
     }
 
-    DEBUG_printf("  Setting up host configuration");
+    ESP_LOGI(TAG,"  Setting up host configuration");
 
     sdcard_card_obj_t *self = mp_obj_malloc_with_finaliser(sdcard_card_obj_t, &machine_sdcard_type);
     self->flags = 0;
@@ -261,7 +266,7 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         #endif
     }
 
-    DEBUG_printf("  Calling host.init()");
+    ESP_LOGI(TAG,"  Calling host.init()");
 
     check_esp_err(self->host.init());
     self->flags |= SDCARD_CARD_FLAGS_HOST_INIT_DONE;
@@ -303,7 +308,7 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         }
     } else {
         // SD/MMC interface
-        DEBUG_printf("  Setting up SDMMC slot configuration");
+        ESP_LOGI(TAG,"  Setting up SDMMC slot configuration");
         sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
 
         // Stronger external pull-ups are still needed but apparently
@@ -327,11 +332,11 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
             mp_raise_ValueError(MP_ERROR_TEXT("width must be 1 or 4 (or 8 on slot 0)"));
         }
 
-        DEBUG_printf("  Calling init_slot()");
+        ESP_LOGI(TAG,"  Calling init_slot()");
         check_esp_err(sdmmc_host_init_slot(self->host.slot, &slot_config));
     }
 
-    DEBUG_printf("  Returning new card object: %p", self);
+    ESP_LOGI(TAG,"  Returning new card object: %p", self);
     return MP_OBJ_FROM_PTR(self);
 }
 
