@@ -204,7 +204,6 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         { MP_QSTR_d1,       MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 1} },
         { MP_QSTR_d2,       MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 6} },
         { MP_QSTR_d3,       MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 5} },
-
         // freq is valid for both SPI and SDMMC interfaces
         { MP_QSTR_freq,     MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 20000000} },
     };
