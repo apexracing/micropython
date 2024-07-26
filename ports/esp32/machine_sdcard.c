@@ -178,6 +178,13 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         ARG_sck,
         ARG_cs,
         ARG_freq,
+        ARG_sdmmc_pins,
+        ARG_clk,
+        ARG_cmd,
+        ARG_d0,
+        ARG_d1,
+        ARG_d2,
+        ARG_d3
     };
     static const mp_arg_t allowed_args[] = {
         { MP_QSTR_slot,     MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 1} },
@@ -189,6 +196,15 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         { MP_QSTR_mosi,     MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
         { MP_QSTR_sck,      MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
         { MP_QSTR_cs,       MP_ARG_KW_ONLY | MP_ARG_OBJ, {.u_obj = mp_const_none} },
+        // 使用指定sdmmc spin
+        { MP_QSTR_sdmmc_pins,     MP_ARG_KW_ONLY | MP_ARG_BOOL, {.u_bool = false} },
+        { MP_QSTR_clk,     MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 3} },
+        { MP_QSTR_cmd,     MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 4} },
+        { MP_QSTR_d0,      MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 2} },
+        { MP_QSTR_d1,       MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 1} },
+        { MP_QSTR_d2,       MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 6} },
+        { MP_QSTR_d3,       MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 5} },
+
         // freq is valid for both SPI and SDMMC interfaces
         { MP_QSTR_freq,     MP_ARG_KW_ONLY | MP_ARG_INT, {.u_int = 20000000} },
     };
@@ -299,13 +315,21 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
 
         SET_CONFIG_PIN(slot_config, gpio_cd, ARG_cd);
         SET_CONFIG_PIN(slot_config, gpio_wp, ARG_wp);
-
+        if(sdmmc_pins){
+            SET_CONFIG_PIN(slot_config, clk, ARG_clk);
+            SET_CONFIG_PIN(slot_config, cmd, ARG_cmd);
+            SET_CONFIG_PIN(slot_config, d0, ARG_d0);
+            SET_CONFIG_PIN(slot_config, d1, ARG_d1);
+            SET_CONFIG_PIN(slot_config, d2, ARG_d2);
+            SET_CONFIG_PIN(slot_config, d3, ARG_d3);
+        }
         int width = arg_vals[ARG_width].u_int;
         if (width == 1 || width == 4 || (width == 8 && slot_num == 0)) {
             slot_config.width = width;
         } else {
             mp_raise_ValueError(MP_ERROR_TEXT("width must be 1 or 4 (or 8 on slot 0)"));
         }
+        bool  sdmmc_pins= arg_vals[ARG_sdmmc_pins].u_bool;
 
         DEBUG_printf("  Calling init_slot()");
         check_esp_err(sdmmc_host_init_slot(self->host.slot, &slot_config));
