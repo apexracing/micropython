@@ -72,3 +72,7 @@
 	path = ports/esp32/components/libpng/libpng
 	url = https://github.com/pnggroup/libpng.git
 	branch = 07b8803
+[submodule "ports/esp32/components/zlib/zlib"]
+	path = ports/esp32/components/zlib/zlib
+	url = https://github.com/madler/zlib.git
+	branch = 09155ea
