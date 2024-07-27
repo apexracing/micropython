@@ -223,6 +223,8 @@ void esp_initialise_wifi(void) {
         wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
         #if CONFIG_SPIRAM_IGNORE_NOTFOUND
         if (!esp_psram_is_initialized()) {
+            ESP_LOGI("modnetwork", "Initializing WiFi Change to Dynamic");
+
             // If PSRAM failed to initialize, disable "Wi-Fi Cache TX Buffers"
             // (default SPIRAM config ESP32_WIFI_CACHE_TX_BUFFER_NUM==32, this is 54,400 bytes of heap)
             cfg.cache_tx_buf_num = 0;
@@ -238,11 +240,11 @@ void esp_initialise_wifi(void) {
             cfg.dynamic_tx_buf_num = 32; // ESP-IDF default value (maximum)
         }
         #endif
-        ESP_LOGD("modnetwork", "Initializing WiFi");
+        ESP_LOGI("modnetwork", "Initializing WiFi");
         esp_exceptions(esp_wifi_init(&cfg));
         esp_exceptions(esp_wifi_set_storage(WIFI_STORAGE_RAM));
 
-        ESP_LOGD("modnetwork", "Initialized");
+        ESP_LOGI("modnetwork", "Initialized");
         wifi_initialized = 1;
     }
 }
