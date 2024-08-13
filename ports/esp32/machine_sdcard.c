@@ -255,7 +255,7 @@ static mp_obj_t machine_sdcard_make_new(const mp_obj_type_t *type, size_t n_args
         self->host = _temp_host;
     } else {
         sdmmc_host_t _temp_host = SDMMC_HOST_DEFAULT();
-        _temp_host.max_freq_khz = freq / 1000;
+        _temp_host.max_freq_khz = SDMMC_FREQ_PROBING;
         self->host = _temp_host;
     }
 
