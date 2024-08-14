@@ -192,7 +192,7 @@
 
 // task size
 #ifndef MICROPY_TASK_STACK_SIZE
-#define MICROPY_TASK_STACK_SIZE             (64 * 1024)
+#define MICROPY_TASK_STACK_SIZE             (48 * 1024)
 #endif
 
 #define MP_STATE_PORT MP_STATE_VM
