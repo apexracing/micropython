@@ -19,7 +19,6 @@ SRC_EXTMOD_C += \
 	extmod/machine_wdt.c \
 	extmod/modasyncio.c \
 	extmod/modbinascii.c \
-	extmod/modbluetooth.c \
 	extmod/modbtree.c \
 	extmod/modcryptolib.c \
 	extmod/moddeflate.c \
@@ -420,9 +419,9 @@ SRC_THIRDPARTY_C += $(addprefix $(CYW43_DIR)/src/,\
 	cyw43_sdio.c \
 	cyw43_stats.c \
 	)
-ifeq ($(MICROPY_PY_BLUETOOTH),1)
-DRIVERS_SRC_C += drivers/cyw43/cywbt.c
-endif
+#ifeq ($(MICROPY_PY_BLUETOOTH),1)
+#DRIVERS_SRC_C += drivers/cyw43/cywbt.c
+#endif
 
 $(BUILD)/$(CYW43_DIR)/src/cyw43_%.o: CFLAGS += -std=c11
 endif # MICROPY_PY_NETWORK_CYW43
@@ -464,9 +463,9 @@ ESP_HOSTED_SRC_C = $(addprefix $(ESP_HOSTED_DIR)/,\
 	esp_hosted_hal.c \
 	)
 
-ifeq ($(MICROPY_PY_BLUETOOTH),1)
-ESP_HOSTED_SRC_C += $(ESP_HOSTED_DIR)/esp_hosted_bthci.c
-endif
+#ifeq ($(MICROPY_PY_BLUETOOTH),1)
+#ESP_HOSTED_SRC_C += $(ESP_HOSTED_DIR)/esp_hosted_bthci.c
+#endif
 
 # Include the protobuf-c support functions
 ESP_HOSTED_SRC_C += $(addprefix $(PROTOBUF_C_DIR)/,\
@@ -492,32 +491,32 @@ DRIVERS_SRC_C += $(ESP_HOSTED_SRC_C)
 endif # MICROPY_PY_NETWORK_ESP_HOSTED
 
 ################################################################################
-# bluetooth
-
-ifeq ($(MICROPY_PY_BLUETOOTH),1)
-CFLAGS_EXTMOD += -DMICROPY_PY_BLUETOOTH=1
-
-ifeq ($(MICROPY_BLUETOOTH_NIMBLE),1)
-ifeq ($(MICROPY_BLUETOOTH_BTSTACK),1)
-$(error Cannot enable both NimBLE and BTstack at the same time)
-endif
-endif
-
-ifneq ($(MICROPY_BLUETOOTH_NIMBLE),1)
-ifneq ($(MICROPY_BLUETOOTH_BTSTACK),1)
-$(error Must enable one of MICROPY_BLUETOOTH_NIMBLE or MICROPY_BLUETOOTH_BTSTACK)
-endif
-endif
-
-ifeq ($(MICROPY_BLUETOOTH_NIMBLE),1)
-include $(TOP)/extmod/nimble/nimble.mk
-endif
-
-ifeq ($(MICROPY_BLUETOOTH_BTSTACK),1)
-include $(TOP)/extmod/btstack/btstack.mk
-endif
-
-endif
+## bluetooth
+#
+#ifeq ($(MICROPY_PY_BLUETOOTH),1)
+#CFLAGS_EXTMOD += -DMICROPY_PY_BLUETOOTH=1
+#
+#ifeq ($(MICROPY_BLUETOOTH_NIMBLE),1)
+#ifeq ($(MICROPY_BLUETOOTH_BTSTACK),1)
+#$(error Cannot enable both NimBLE and BTstack at the same time)
+#endif
+#endif
+#
+#ifneq ($(MICROPY_BLUETOOTH_NIMBLE),1)
+#ifneq ($(MICROPY_BLUETOOTH_BTSTACK),1)
+#$(error Must enable one of MICROPY_BLUETOOTH_NIMBLE or MICROPY_BLUETOOTH_BTSTACK)
+#endif
+#endif
+#
+#ifeq ($(MICROPY_BLUETOOTH_NIMBLE),1)
+#include $(TOP)/extmod/nimble/nimble.mk
+#endif
+#
+#ifeq ($(MICROPY_BLUETOOTH_BTSTACK),1)
+#include $(TOP)/extmod/btstack/btstack.mk
+#endif
+#
+#endif
 
 ################################################################################
 # openamp
