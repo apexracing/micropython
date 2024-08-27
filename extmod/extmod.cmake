@@ -6,7 +6,7 @@ set(MICROPY_OOFATFS_DIR "${MICROPY_DIR}/lib/oofatfs")
 set(MICROPY_SOURCE_EXTMOD
     ${MICROPY_DIR}/shared/libc/abort_.c
     ${MICROPY_DIR}/shared/libc/printf.c
-#    ${MICROPY_EXTMOD_DIR}/btstack/modbluetooth_btstack.c
+    ${MICROPY_EXTMOD_DIR}/btstack/modbluetooth_btstack.c
     ${MICROPY_EXTMOD_DIR}/machine_adc.c
     ${MICROPY_EXTMOD_DIR}/machine_adc_block.c
     ${MICROPY_EXTMOD_DIR}/machine_bitstream.c
@@ -20,7 +20,7 @@ set(MICROPY_SOURCE_EXTMOD
     ${MICROPY_EXTMOD_DIR}/machine_uart.c
     ${MICROPY_EXTMOD_DIR}/machine_usb_device.c
     ${MICROPY_EXTMOD_DIR}/machine_wdt.c
-#    ${MICROPY_EXTMOD_DIR}/modbluetooth.c
+    ${MICROPY_EXTMOD_DIR}/modbluetooth.c
     ${MICROPY_EXTMOD_DIR}/modframebuf.c
     ${MICROPY_EXTMOD_DIR}/modlwip.c
     ${MICROPY_EXTMOD_DIR}/modmachine.c
@@ -61,7 +61,7 @@ set(MICROPY_SOURCE_EXTMOD
     ${MICROPY_EXTMOD_DIR}/vfs_posix_file.c
     ${MICROPY_EXTMOD_DIR}/vfs_reader.c
     ${MICROPY_EXTMOD_DIR}/virtpin.c
-#    ${MICROPY_EXTMOD_DIR}/nimble/modbluetooth_nimble.c
+    ${MICROPY_EXTMOD_DIR}/nimble/modbluetooth_nimble.c
 )
 
 # Single-precision libm math library.
