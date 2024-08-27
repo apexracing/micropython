@@ -1007,7 +1007,7 @@ const mp_obj_module_t mp_module_bluetooth = {
 // library nor is it necessary to override from the filesystem), however it
 // has previously been known as `ubluetooth`, so by making it extensible the
 // `ubluetooth` alias will continue to work.
-MP_REGISTER_EXTENSIBLE_MODULE(MP_QSTR_bluetooth, mp_module_bluetooth);
+//MP_REGISTER_EXTENSIBLE_MODULE(MP_QSTR_bluetooth, mp_module_bluetooth);
 
 // Helpers
 
