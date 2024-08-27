@@ -89,6 +89,7 @@
 #define MICROPY_PY_GC               (0)
 #define MICROPY_PY_IO               (0)
 #define MICROPY_PY_SYS              (0)
+#define MICROPY_PY_BLUETOOTH                (0)
 
 // type definitions for the specific machine
 
